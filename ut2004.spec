@@ -4,18 +4,25 @@ Version:	3369.3
 Release:	0.2
 License:	ut2003
 Group:		Applications/Games
-Source0:	http://www.3dgamers.com/dl/games/unrealtourn2k4/ut2004-lnxpatch3369-2.tar.bz2
+Source0:	http://www.3dgamers.com/dl/games/unrealtourn2k4/%{name}-lnxpatch3369-2.tar.bz2
 # Source0-md5:	0fa447e05fe5a38e0e32adf171be405e
-Source1:	http://mirrors.kernel.org/gentoo/distfiles/ut2004-v3369-3-linux-dedicated.7z
+Source1:	http://mirrors.kernel.org/gentoo/distfiles/%{name}-v3369-3-linux-dedicated.7z
 # Source1-md5:	8f797af8dc3142f61e1c3c3885e6dc40
 Source2:	README.PLD
 URL:		http://www.unrealtournament2004.com/
+BuildRequires:	p7zip
 ExclusiveArch:	%{ix86} %{x8664}
-BuildRequires: p7zip
+%ifarch %{x8664}
+Requires:	libSDL-1.2.so.0(64bit)
+%else
+Requires:	libSDL-1.2.so.0
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-# ut2004-bin sym versions are rather odd
-%define		_noautoprov		ut2004-bin
+# ut2004-bin sym versions are rather odd-skip them
+# "./libSDL-1.2.so.0" used in linkage, but our deps do are without pathname
+%define		_noautoreq		./libSDL-1.2.so.0
+%define		_noautoprov		ut2004-bin %{_noautoreq}
 %define		_enable_debug_packages	0
 
 %define		gamelibdir		%{_libdir}/games/%{name}
@@ -81,23 +88,24 @@ fi
 %dir %{gamelibdir}
 %{gamelibdir}/Animations
 %{gamelibdir}/Help
+%{gamelibdir}/Speech
 %{gamelibdir}/Textures
 %dir %{gamelibdir}/System
 %attr(755,root,root) %{gamelibdir}/System/libSDL-1.2.so.0
 %attr(755,root,root) %{gamelibdir}/System/openal.so
 %attr(755,root,root) %{gamelibdir}/System/ucc-bin
 %attr(755,root,root) %{gamelibdir}/System/ut2004-bin
-%{gamelibdir}/Speech/*.xml
 %{gamelibdir}/System/*.ini
 %{gamelibdir}/System/*.u
 %{gamelibdir}/System/*.ucl
 
-# %lang?
-%{gamelibdir}/System/*.det
-%{gamelibdir}/System/*.kot
-%{gamelibdir}/System/*.est
-%{gamelibdir}/System/*.frt
+# lang resources
 %{gamelibdir}/System/*.int
-%{gamelibdir}/System/*.itt
+%lang(de) %{gamelibdir}/System/*.det
+%lang(ko) %{gamelibdir}/System/*.kot
+%lang(es) %{gamelibdir}/System/*.est
+%lang(fr) %{gamelibdir}/System/*.frt
+%lang(it) %{gamelibdir}/System/*.itt
+
 # web subpackage?
 %{gamelibdir}/Web
