@@ -1,0 +1,7 @@
+Starting with 3369, the game supports render-to-texture.
+
+To enable it, you will need the Nvidia drivers of at least version 7676 and you
+should edit the following: Set "UseRenderTargets=True" in the
+"[OpenGLDrv.OpenGLRenderDevice]" section of your UT2004.ini or Default.ini and
+set "bPlayerShadows=True" and "bBlobShadow=False" in the
+"[UnrealGame.UnrealPawn]" section of your User.ini or DefUser.ini.
