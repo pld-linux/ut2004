@@ -14,19 +14,20 @@ BuildRequires:	p7zip
 ExclusiveArch:	%{ix86} %{x8664}
 %ifarch %{x8664}
 Requires:	libSDL-1.2.so.0()(64bit)
+Requires:	libopenal.so.1()(64bit)
 %else
 Requires:	libSDL-1.2.so.0
+Requires:	libopenal.so.1
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # ut2004-bin sym versions are rather odd-skip them
 # "./libSDL-1.2.so.0" used in linkage, but our deps do are without pathname
-%define		_noautoreq		./libSDL-1.2.so.0
+%define		_noautoreq		./libSDL-1.2.so.0 ./openal.so
 %define		_noautoprov		ut2004-bin %{_noautoreq}
 %define		_enable_debug_packages	0
 
 %define		gamelibdir		%{_libdir}/games/%{name}
-%define		gamedatadir		%{_datadir}/games/%{name}
 
 %description
 Unreal Tournament - futuristic FPS game.
@@ -61,8 +62,7 @@ chmod a+rx UT2004-Patch/System/ut2004-bin
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{gamedatadir},%{gamelibdir}} \
-	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir},%{_bindir}}
+install -d $RPM_BUILD_ROOT{%{gamelibdir},%{_pixmapsdir},%{_desktopdir},%{_bindir}}
 
 cp -a UT2004-Patch/* $RPM_BUILD_ROOT%{gamelibdir}
 
