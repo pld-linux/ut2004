@@ -1,7 +1,7 @@
 Summary:	Editor's Choice Edition plus Mega Pack for the critically-acclaimed first-person shooter
 Name:		ut2004
 Version:	3369.3
-Release:	0.2
+Release:	0.3
 License:	ut2003
 Group:		Applications/Games
 Source0:	http://www.3dgamers.com/dl/games/unrealtourn2k4/%{name}-lnxpatch3369-2.tar.bz2
@@ -13,7 +13,7 @@ URL:		http://www.unrealtournament2004.com/
 BuildRequires:	p7zip
 ExclusiveArch:	%{ix86} %{x8664}
 %ifarch %{x8664}
-Requires:	libSDL-1.2.so.0(64bit)
+Requires:	libSDL-1.2.so.0()(64bit)
 %else
 Requires:	libSDL-1.2.so.0
 %endif
@@ -66,7 +66,7 @@ install -d $RPM_BUILD_ROOT{%{gamedatadir},%{gamelibdir}} \
 
 cp -a UT2004-Patch/* $RPM_BUILD_ROOT%{gamelibdir}
 
-ln -s %{_libdir}/libopenal.so $RPM_BUILD_ROOT%{gamelibdir}/System/openal.so
+ln -s %{_libdir}/libopenal.so.1 $RPM_BUILD_ROOT%{gamelibdir}/System/openal.so
 ln -s %{_libdir}/libSDL-1.2.so.0 $RPM_BUILD_ROOT%{gamelibdir}/System/libSDL-1.2.so.0
 
 %clean
